@@ -44,7 +44,7 @@ def chatbot():
 
         # Call the GPT model
         response = openai.ChatCompletion.create(
-            model="gpt-40-mini",  # Replace with your specific model
+            model="gpt-4o-mini",  # Replace with your specific model
             messages=session_contexts[session_id],
             max_tokens=200,
             temperature=0.7
