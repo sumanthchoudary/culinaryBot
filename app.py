@@ -12,7 +12,7 @@ general_context = (
     "You are an intelligent assistant for a food-based app called Culinary Compass. "
     "This app helps users explore dishes by providing descriptions, ingredients, and nutritional information. "
     "It also alerts diabetic users about dishes that may not be suitable for their condition. "
-    "You may receive context about a specific dish or a user query. Respond appropriately and help the user."
+    "You may receive context about a specific dish or a user query. Respond appropriately and help the user.Try to give output as text but not table"
 )
 
 # In-memory storage for session contexts
@@ -44,7 +44,7 @@ def chatbot():
 
         # Call the GPT model
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # Replace with your specific model
+            model="gpt-40-mini",  # Replace with your specific model
             messages=session_contexts[session_id],
             max_tokens=200,
             temperature=0.7
