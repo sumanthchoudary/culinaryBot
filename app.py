@@ -1,17 +1,18 @@
 from flask import Flask, request, jsonify
 import openai
+import os
 
 app = Flask(__name__)
 
-# Set your OpenAI API key
-openai.api_key = "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"
+# Set your OpenAI API key from an environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # General context about the project
 general_context = (
     "You are an intelligent assistant for a food-based app called Culinary Compass. "
     "This app helps users explore dishes by providing descriptions, ingredients, and nutritional information. "
     "It also alerts diabetic users about dishes that may not be suitable for their condition. "
-    "You may receive context about a specific dish or a user query. Respond appropriately and help the user.Give in just text format."
+    "You may receive context about a specific dish or a user query. Respond appropriately and help the user."
 )
 
 # In-memory storage for session contexts
@@ -43,7 +44,7 @@ def chatbot():
 
         # Call the GPT model
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",  # Use the model available to you
+            model="gpt-4",  # Replace with your specific model
             messages=session_contexts[session_id],
             max_tokens=200,
             temperature=0.7
@@ -62,4 +63,5 @@ def chatbot():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use Render's environment PORT
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
